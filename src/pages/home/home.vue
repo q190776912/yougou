@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { swiperdata, catitems, floordata } from '../../api/home'
+
 export default {
 	data() {
 		return {
@@ -38,7 +40,33 @@ export default {
       catitems: [],
       floordata: []
 		}
-	},
+  },
+  onLoad: async function () {
+    try {
+      this.swiperdata = await swiperdata()
+    } catch {
+      uni.showToast({
+        title: '获取swiperdata有误！',
+        icon: 'none'
+      })
+    }
+    try {
+      this.catitems = await catitems()
+    } catch {
+      uni.showToast({
+        title: '获取catitems有误！',
+        icon: 'none'
+      })
+    }
+    try {
+      this.floordata = await floordata()
+    } catch {
+      uni.showToast({
+        title: '获取floordata有误！',
+        icon: 'none'
+      })
+    }
+  }
 }
 </script>
 

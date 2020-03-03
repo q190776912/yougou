@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import { swiperdata, catitems, floordata } from '@/api/home'
+import { swiperdata, catitems, floordata } from '../../api/home'
+import SearchLink from '../../components/SearchLink'
 
 export default {
 	data() {
@@ -41,7 +42,10 @@ export default {
       floordata: []
 		}
   },
-  onLoad: async function () {
+  components: {
+    SearchLink
+  },
+  async onLoad() {
     try {
       this.swiperdata = await swiperdata()
     } catch {

@@ -1,6 +1,13 @@
-export default function request({ url, method = 'GET', data }) {
+export default function request({ url, method = 'GET', data, showLoading }) {
   const BASE_URL = 'https://api-hmugo-web.itheima.net'
   return new Promise((resolve, reject) => {
+    if (showLoading) {
+      uni.showToast({
+        title: '加载中',
+        icon: 'loading',
+        mask: true
+      })
+    }
     uni.request({
       url: `${BASE_URL}${url}`,
       data,
@@ -10,10 +17,9 @@ export default function request({ url, method = 'GET', data }) {
           resolve(message)
         } else {
           uni.showToast({
-            title: '获取数据有误！',
+            title: message,
             icon: 'none'
           })
-          console.log(message)
         }
       },
       fail: reject || null

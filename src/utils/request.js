@@ -12,7 +12,7 @@ export default function request({ url, method = 'GET', data, showLoading }) {
       url: `${BASE_URL}${url}`,
       data,
       method,
-      success: ({ data: { message, meta: { status } }} ) => {
+      success: ({ data: { message, meta: { status } } }) => {
         if (status === 200) {
           resolve(message)
         } else {

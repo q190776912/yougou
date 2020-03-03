@@ -1,20 +1,20 @@
-import request from '../utils/request'
+import request from '@/utils/request'
 
 function swiperdata() {
   return request({
-    url: '/home/swiperdata'
+    url: '/api/public/v1/home/swiperdata'
   })
 }
 
 function catitems() {
   return request({
-    url: '/home/catitems'
+    url: '/api/public/v1/home/catitems'
   })
 }
 
 function floordata() {
   return request({
-    url: '/home/floordata'
+    url: '/api/public/v1/home/floordata'
   })
 }
 

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { swiperdata, catitems, floordata } from '../../api/home'
+import { swiperdata, catitems, floordata } from '@/api/home'
 
 export default {
 	data() {

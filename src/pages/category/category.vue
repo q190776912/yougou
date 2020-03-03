@@ -1,14 +1,14 @@
 <template>
-  <view class="category">
-    <SearchLink/>
-    <view class="content">
+	<view class="category">
+		<SearchLink/>
+		<view class="content">
 			<view class="left">
 				<view :class="{ active: activeIndex === index }" class="li" v-for="(item, index) in categories" :key="index" @click="changeIndex(index)">
 					{{item.cat_name}}
 				</view>
 			</view>
 			<view v-if="categories[activeIndex]" class="right">
-        <image src="../../static/images/titleImage.png"></image>
+				<image src="../../static/images/titleImage.png"></image>
 				<!-- 二级分类 -->
 				<view class="cate2" v-for="(cate2, index) in categories[activeIndex].children" :key="index">
 					<view class="title">
@@ -16,7 +16,7 @@
 					</view>
 					<view class="cate3">
 						<view v-for="(cate3, index) in cate2.children" :key="index">
-							<image :src="cate3.cat_icon" mode=""></image>
+							<image :src="cate3.cat_icon"></image>
 							<view>{{cate3.cat_name}}</view>
 						</view>
 					</view>

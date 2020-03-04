@@ -2,8 +2,7 @@ import request from '../utils/request'
 
 function swiperdata() {
   return request({
-    url: '/api/public/v1/home/swiperdata',
-    showLoading: true
+    url: '/api/public/v1/home/swiperdata'
   })
 }
 

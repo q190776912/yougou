@@ -1,4 +1,4 @@
-export default function request({ url, method = 'GET', data, showLoading }) {
+export default function request({ url, method = 'GET', data, showLoading = true }) {
   const BASE_URL = 'https://api-hmugo-web.itheima.net'
   return new Promise((resolve, reject) => {
     if (showLoading) {
@@ -22,7 +22,8 @@ export default function request({ url, method = 'GET', data, showLoading }) {
           })
         }
       },
-      fail: reject || null
+      fail: reject || null,
+      complete: uni.hideToast
     })
   })
 }

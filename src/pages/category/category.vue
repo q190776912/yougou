@@ -67,80 +67,76 @@ export default {
 </script>
 
 <style lang="less">
-.category {
-  .content {
-    display: flex;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 100rpx;
+.content {
+  display: flex;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 100rpx;
+}
+.left {
+  width: 198rpx;
+  overflow: scroll;
+  .li {
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;
+    border: 1rpx solid #eee;
+    background-color: #f4f4f4;
+    color: #333;
   }
-
-  .left {
-    width: 198rpx;
-    overflow: scroll;
-    .li {
-      height: 100rpx;
-      line-height: 100rpx;
+  .active {
+    color: #eb4450;
+    background-color: #fff;
+    position: relative;
+    &::before {
+      position: absolute;
+      content: "";
+      height: 60rpx;
+      width: 8rpx;
+      background-color: #eb4450;
+      left: 0;
+      top: 20rpx;
+    }
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.right {
+  flex: 1;
+  overflow: scroll;
+  > image {
+    width: 520rpx;
+    height: 180rpx;
+    padding: 20rpx 16rpx;
+  }
+  .cate2 {
+    margin-bottom: 60rpx;
+    .title {
+      height: 110rpx;
       text-align: center;
-      border: 1rpx solid #eee;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-    .active {
-      color: #eb4450;
-      background-color: #fff;
-      position: relative;
-      &::before {
-        position: absolute;
-        content: "";
-        height: 60rpx;
-        width: 8rpx;
-        background-color: #eb4450;
-        left: 0;
-        top: 20rpx;
+      line-height: 110rpx;
+      color: #e0e0e0;
+      text {
+        margin: 0 30rpx;
+        color: #333;
       }
     }
-    &::-webkit-scrollbar {
-      display: none;
+    .cate3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      justify-items: center;
+      text-align: center;
+      image {
+        width: 120rpx;
+        height: 120rpx;
+      }
     }
   }
-
-  .right {
-    flex: 1;
-    overflow: scroll;
-    > image {
-      width: 520rpx;
-      height: 180rpx;
-      padding: 20rpx 16rpx;
-    }
-    .cate2 {
-      margin-bottom: 60rpx;
-      .title {
-        height: 110rpx;
-        text-align: center;
-        line-height: 110rpx;
-        color: #e0e0e0;
-        text {
-          margin: 0 30rpx;
-          color: #333;
-        }
-      }
-      .cate3 {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        justify-items: center;
-        text-align: center;
-        image {
-          width: 120rpx;
-          height: 120rpx;
-        }
-      }
-    }
-    &::-webkit-scrollbar {
-      display: none;
-    }
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>

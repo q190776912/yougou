@@ -75,47 +75,43 @@ export default {
 </script>
 
 <style lang="less">
-.home {
-  swiper {
+swiper {
+  height: 340rpx;
+  image {
+    width: 100%;
     height: 340rpx;
-    image {
-      width: 100%;
-      height: 340rpx;
-    }
   }
-
-  .nav {
-    display: flex;
-    height: 194rpx;
-    justify-content: space-around;
-    align-items: center;
-    image {
-      width: 128rpx;
-      height: 140rpx;
-    }
+}
+.nav {
+  display: flex;
+  height: 194rpx;
+  justify-content: space-around;
+  align-items: center;
+  image {
+    width: 128rpx;
+    height: 140rpx;
   }
-  .floor {
-    padding:20rpx 17rpx 0;
-    > image {
-      height: 88rpx;
-      width: 100%;
-    }
+}
+.floor {
+  padding:20rpx 17rpx 0;
+  > image {
+    height: 88rpx;
+    width: 100%;
   }
-
-  .product_list {
-    display: flex;
+}
+.product_list {
+  display: flex;
+  > image {
+    width: 232rpx;
+    height: 386rpx;
+  }
+  .right {
+    flex:1;
+    font-size: 0;
     > image {
       width: 232rpx;
-      height: 386rpx;
-    }
-    .right {
-      flex:1;
-      font-size: 0;
-      > image {
-        width: 232rpx;
-        height: 188rpx;
-        margin:0 0 10rpx 10rpx;
-      }
+      height: 188rpx;
+      margin:0 0 10rpx 10rpx;
     }
   }
 }

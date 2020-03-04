@@ -45,7 +45,8 @@ export default {
       keyword: '',
       query: '',
       page: 1,
-      isFinish: false
+      isFinish: false,
+      isRequesting: false
     }
   },
 
@@ -55,13 +56,18 @@ export default {
     },
 
     async getSearchList() {
+      if (this.isFinish || this.isRequesting) {
+        return
+      }
+      this.isRequesting = true
       const DATA = await search({
         query: this.query,
-        pagenum: this.page,
+        pagenum: this.page++,
         pagesize: PAGE_SIZE
       })
-      this.searchList = DATA.goods
-      if (this.page++ * PAGE_SIZE >= DATA.total) {
+      this.searchList = [...this.searchList, ...DATA.goods]
+      this.isRequesting = false
+      if (this.searchList.length === DATA.total) {
         this.isFinish = true
       }
     },
@@ -70,6 +76,7 @@ export default {
       this.page = 1
       this.query = this.keyword
       this.isFinish = false
+      this.searchList = []
       this.getSearchList()
     }
   },
@@ -81,22 +88,11 @@ export default {
 
   async onPullDownRefresh() {
     uni.stopPullDownRefresh()
-    if (this.isFinish) {
-      return
-    }
     this.getSearchList()
   },
 
   async onReachBottom() {
-    if (this.isFinish) {
-      return
-    }
-    const DATA = await search({
-      query: this.query,
-      pagenum: this.page++,
-      pagesize: PAGE_SIZE
-    })
-    this.searchList = [...this.searchList, ...DATA.goods]
+    this.getSearchList()
   }
 };
 </script>

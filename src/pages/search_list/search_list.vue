@@ -73,11 +73,15 @@ export default {
     },
 
     querySearch() {
-      this.page = 1
       this.query = this.keyword
+      this.reset()
+      this.getSearchList()
+    },
+
+    reset() {
+      this.page = 1
       this.isFinish = false
       this.searchList = []
-      this.getSearchList()
     }
   },
 
@@ -88,9 +92,7 @@ export default {
 
   async onPullDownRefresh() {
     uni.stopPullDownRefresh()
-    this.page = 1
-    this.isFinish = false
-    this.searchList = []
+    this.reset()
     this.getSearchList()
   },
 

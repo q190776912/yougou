@@ -12,7 +12,7 @@
         >{{item.cat_name}}</view>
       </view>
       <view v-if="categories.length" class="right">
-        <image src="../../static/images/titleImage.png" />>
+        <image src="../../static/images/titleImage.png" />
         <!-- 二级分类 -->
         <view class="cate2" v-for="(cate2, index) in categories[activeIndex].children" :key="index">
           <view class="title">
@@ -21,7 +21,7 @@
           </view>
           <view class="cate3">
             <view v-for="(cate3, index) in cate2.children" :key="index">
-              <image :src="cate3.cat_icon" />>
+              <image :src="cate3.cat_icon" />
               <view>{{cate3.cat_name}}</view>
             </view>
           </view>

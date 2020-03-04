@@ -88,6 +88,9 @@ export default {
 
   async onPullDownRefresh() {
     uni.stopPullDownRefresh()
+    this.page = 1
+    this.isFinish = false
+    this.searchList = []
     this.getSearchList()
   },
 

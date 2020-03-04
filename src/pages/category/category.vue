@@ -11,7 +11,7 @@
           @click="changeIndex(index)"
         >{{item.cat_name}}</view>
       </view>
-      <view v-if="categories[activeIndex]" class="right">
+      <view v-if="categories.length" class="right">
         <image src="../../static/images/titleImage.png" />>
         <!-- 二级分类 -->
         <view class="cate2" v-for="(cate2, index) in categories[activeIndex].children" :key="index">

@@ -25,6 +25,12 @@
 			}
 		},
 		{
+			"path": "pages/item/item",
+			"style": {
+				"navigationBarTitleText": "商品详情"
+			}
+		},
+		{
 			"path": "pages/search_list/search_list",
 			"style": {
 				"navigationBarTitleText": "搜索",

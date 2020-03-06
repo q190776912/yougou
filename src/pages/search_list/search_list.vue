@@ -18,7 +18,7 @@
 
     <!-- 商品列表 -->
     <view class="goods-list">
-      <view class="goods" v-for="(item, index) in searchList" :key="index">
+      <view @click="toItem(item.goods_id)" class="goods" v-for="(item, index) in searchList" :key="index">
         <image v-if="item.goods_big_logo" :src="item.goods_big_logo" />
         <view class="right">
           <view class="goods-name">{{item.goods_name}}</view>
@@ -42,12 +42,26 @@ export default {
       menuList: ['综合','销量','价格'],
       searchList: [],
       activeIndex: 0,
-      keyword: '',
-      query: '',
-      page: 1,
-      isFinish: false,
-      isRequesting: false
+      keyword: ''
     }
+  },
+
+  async onLoad(option) {
+    this.page = 1
+    this.isFinish = false
+    this.isRequesting = false
+    this.query = option.query || ''
+    this.getSearchList()
+  },
+
+  async onPullDownRefresh() {
+    uni.stopPullDownRefresh()
+    this.reset()
+    this.getSearchList()
+  },
+
+  async onReachBottom() {
+    this.getSearchList()
   },
 
   methods: {
@@ -65,6 +79,7 @@ export default {
         pagenum: this.page++,
         pagesize: PAGE_SIZE
       })
+      console.log(DATA)
       this.searchList = [...this.searchList, ...DATA.goods]
       this.isRequesting = false
       if (this.searchList.length === DATA.total) {
@@ -74,6 +89,7 @@ export default {
 
     querySearch() {
       this.query = this.keyword
+      this.keyword = ''
       this.reset()
       this.getSearchList()
     },
@@ -82,22 +98,13 @@ export default {
       this.page = 1
       this.isFinish = false
       this.searchList = []
+    },
+
+    toItem(goods_id) {
+      uni.navigateTo({
+        url: `/pages/item/item?goods_id=${goods_id}`
+      })
     }
-  },
-
-  async onLoad() {
-    uni.startPullDownRefresh()
-    this.getSearchList()
-  },
-
-  async onPullDownRefresh() {
-    uni.stopPullDownRefresh()
-    this.reset()
-    this.getSearchList()
-  },
-
-  async onReachBottom() {
-    this.getSearchList()
   }
 };
 </script>
@@ -159,11 +166,13 @@ export default {
 
 .filter-menu {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  text-align: center;
   height: 100rpx;
-
-  view.active {
+  line-height: 100rpx;
+  view {
+    flex: 1;
+  }
+  .active {
     color: #eb4450;
   }
 }

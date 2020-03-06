@@ -20,7 +20,7 @@
             <text>{{cate2.cat_name}}</text>/
           </view>
           <view class="cate3">
-            <view v-for="(cate3, index) in cate2.children" :key="index">
+            <view @click="toSearchList(cate3.cat_name)" v-for="(cate3, index) in cate2.children" :key="index">
               <image :src="cate3.cat_icon" />
               <view>{{cate3.cat_name}}</view>
             </view>
@@ -50,6 +50,12 @@ export default {
   methods: {
     changeIndex(index) {
       this.activeIndex = index;
+    },
+
+    toSearchList(query) {
+      uni.navigateTo({
+        url: `/pages/search_list/search_list?query=${query}`
+      })
     }
   },
 

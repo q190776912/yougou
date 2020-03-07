@@ -15,6 +15,7 @@
 
 <script>
 import SearchBar from '../../components/SearchBar'
+const HISTORY_LIST = 'HISTORY_LIST'
 
 export default {
   components: {
@@ -28,7 +29,7 @@ export default {
   },
 
   onShow() {
-    this.historyList = uni.getStorageSync('HISTORY_LIST') || []
+    this.historyList = uni.getStorageSync(HISTORY_LIST) || []
   },
 
   methods: {
@@ -40,7 +41,7 @@ export default {
 
     clearHistory() {
       this.historyList = []
-      uni.setStorageSync('HISTORY_LIST', [])
+      uni.setStorageSync(HISTORY_LIST, [])
     }
   }
 }

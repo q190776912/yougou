@@ -58,11 +58,11 @@
         <text>联系客服</text>
         <button open-type="contact">客服</button>
       </view>
-      <view class="icon-text">
+      <view @click.stop="toCart" class="icon-text">
         <text class="iconfont icon-cart"></text>
         <text>购物车</text>
       </view>
-      <view class="btn add-cart-btn">加入购物车</view>
+      <view @click="addToCart" class="btn add-cart-btn">加入购物车</view>
       <view class="btn buy-btn">立即购买</view>
     </view>
   </view>
@@ -103,6 +103,31 @@ export default {
 
     changeIndex(index){
       this.activeIndex = index
+    },
+
+    toCart() {
+      uni.switchTab({ 
+        url: '/pages/cart/cart' 
+      })
+    },
+
+    addToCart() {
+      let cart = uni.getStorageSync('cart') || []
+      const GOOD_ID = this.goodsDetail.goods_id
+      const INDEX = cart.findIndex((item) => {
+        if (item.goodsId === GOOD_ID) {
+          item.num++
+          return item.checked = true
+        }
+      })
+      if (INDEX === -1) {
+        cart.unshift({
+          goodsId: GOOD_ID,
+          num: 1,
+          checked: true
+        })
+      }
+      uni.setStorageSync('cart', cart)
     }
   }
 }

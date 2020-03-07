@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import SearchLink from "../../components/SearchLink";
-import { categories } from "../../api/categories";
+import SearchLink from '../../components/SearchLink'
+import { categories } from '../../api/categories'
 
 export default {
   data() {
@@ -49,27 +49,28 @@ export default {
 
   methods: {
     changeIndex(index) {
-      this.activeIndex = index;
+      this.activeIndex = index
     },
 
     toSearchList(query) {
       uni.navigateTo({
         url: `/pages/search_list/search_list?query=${query}`
       })
+      setHistoryList(query)
     }
   },
 
   async onLoad() {
     try {
-      this.categories = await categories();
+      this.categories = await categories()
     } catch {
       uni.showToast({
         title: "获取categories数据有误",
         icon: "none"
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="less">

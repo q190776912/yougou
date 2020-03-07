@@ -1,6 +1,6 @@
 <template>
 	<view class="home">
-		<SearchLink/>
+		<SearchLink @click="toSearch" />
     <!-- 轮播图 -->
     <swiper indicator-dots circular autoplay indicator-color="rgba(255,255,255,0.3)" indicator-active-color="#fff">
       <block v-for="(item, index) in swiperdata" :key="index">
@@ -35,6 +35,10 @@ import { swiperdata, catitems, floordata } from '../../api/home'
 import SearchLink from '../../components/SearchLink'
 
 export default {
+  components: {
+    SearchLink
+  },
+
 	data() {
 		return {
       swiperdata: [],
@@ -42,9 +46,7 @@ export default {
       floordata: []
 		}
   },
-  components: {
-    SearchLink
-  },
+
   async onLoad() {
     try {
       this.swiperdata = await swiperdata()

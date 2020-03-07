@@ -3,7 +3,7 @@
     <input type="text"
            confirm-type="search"
            v-model.trim="inputVal"
-           @confirm="$emit('querySearch', inputVal)">
+           @confirm="querySearch">
     <icon class="search-icon"
           type="search"
           size="16">
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import setHistoryList from '../utils/historyList'
+
 export default {
   props: ['query'],
   data() {
@@ -26,8 +28,16 @@ export default {
       inputVal: ''
     }
   },
+
+  methods: {
+    querySearch() {
+      this.$emit('querySearch', this.inputVal)
+      setHistoryList(this.inputVal)
+    }
+  },
+
   watch: {
-    query: function (newVal) {
+    query(newVal) {
       this.inputVal = newVal
     }
   }

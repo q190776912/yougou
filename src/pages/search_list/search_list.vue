@@ -1,11 +1,7 @@
 <template>
   <view class="search_list">
     <!-- 头部 -->
-    <view class="header">
-      <icon type="search" size="16" color="#bbb"></icon>
-      <input type="text" v-model="keyword" confirm-type="search" @confirm="querySearch" />
-    </view>
-
+    <SearchBar :query="query" @query-search="querySearch" />
     <!-- 过滤菜单 -->
     <view class="filter-menu">
       <view
@@ -34,15 +30,19 @@
 
 <script>
 import { search } from '../../api/goods'
+import SearchBar from '../../components/SearchBar'
 const PAGE_SIZE = 6
 
 export default {
+  components: {
+    SearchBar
+  },
   data() {
     return {
       menuList: ['综合','销量','价格'],
       searchList: [],
       activeIndex: 0,
-      keyword: ''
+      query: ''
     }
   },
 
@@ -79,7 +79,6 @@ export default {
         pagenum: this.page++,
         pagesize: PAGE_SIZE
       })
-      console.log(DATA)
       this.searchList = [...this.searchList, ...DATA.goods]
       this.isRequesting = false
       if (this.searchList.length === DATA.total) {
@@ -87,9 +86,8 @@ export default {
       }
     },
 
-    querySearch() {
-      this.query = this.keyword
-      this.keyword = ''
+    querySearch(keyword) {
+      this.query = keyword
       this.reset()
       this.getSearchList()
     },

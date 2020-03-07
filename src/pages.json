@@ -31,9 +31,15 @@
 			}
 		},
 		{
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
+		},
+		{
 			"path": "pages/search_list/search_list",
 			"style": {
-				"navigationBarTitleText": "搜索",
+				"navigationBarTitleText": "搜索列表",
 				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 50
 			}

@@ -14,13 +14,13 @@
       <view v-if="categories.length" class="right">
         <image src="../../static/images/titleImage.png" />
         <!-- 二级分类 -->
-        <view class="cate2" v-for="(cate2, index) in categories[activeIndex].children" :key="index">
+        <view class="cate2" v-for="(cate2, cate2Index) in categories[activeIndex].children" :key="cate2Index">
           <view class="title">
             /
             <text>{{cate2.cat_name}}</text>/
           </view>
           <view class="cate3">
-            <view @click="toSearchList(cate3.cat_name)" v-for="(cate3, index) in cate2.children" :key="index">
+            <view @click="toSearchList(cate3.cat_name)" v-for="(cate3, cate3Index) in cate2.children" :key="cate3Index">
               <image :src="cate3.cat_icon" />
               <view>{{cate3.cat_name}}</view>
             </view>

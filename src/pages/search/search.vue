@@ -15,7 +15,7 @@
 
 <script>
 import SearchBar from '../../components/SearchBar'
-const HISTORY_LIST = 'HISTORY_LIST'
+const HISTORY_LIST = 'historyList'
 
 export default {
   components: {

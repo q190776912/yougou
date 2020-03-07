@@ -36,8 +36,8 @@ export default {
 
     setHistoryList(query) {
       if (query) {
-        const HISTORY_LIST = uni.getStorageSync('HISTORY_LIST') || []
-        uni.setStorageSync('HISTORY_LIST', [...new Set([query, ...HISTORY_LIST])])
+        const HISTORY_LIST = uni.getStorageSync('historyList') || []
+        uni.setStorageSync('historyList', [...new Set([query, ...HISTORY_LIST])])
       }
     }
   },

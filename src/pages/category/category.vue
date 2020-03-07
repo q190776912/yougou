@@ -56,7 +56,6 @@ export default {
       uni.navigateTo({
         url: `/pages/search_list/search_list?query=${query}`
       })
-      setHistoryList(query)
     }
   },
 

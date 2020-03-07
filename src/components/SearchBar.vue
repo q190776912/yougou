@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import setHistoryList from '../utils/historyList'
 
 export default {
   props: ['query'],
@@ -32,13 +31,21 @@ export default {
   methods: {
     querySearch() {
       this.$emit('querySearch', this.inputVal)
-      setHistoryList(this.inputVal)
+      this.setHistoryList(this.inputVal)
+    },
+
+    setHistoryList(query) {
+      if (query) {
+        const HISTORY_LIST = uni.getStorageSync('HISTORY_LIST') || []
+        uni.setStorageSync('HISTORY_LIST', [...new Set([query, ...HISTORY_LIST])])
+      }
     }
   },
 
   watch: {
     query(newVal) {
       this.inputVal = newVal
+      this.setHistoryList(newVal)
     }
   }
 }

@@ -45,6 +45,7 @@ export default {
   watch: {
     query(newVal) {
       this.inputVal = newVal
+      //  储存分类页面及历史搜索按钮跳转过来的搜索记录
       this.setHistoryList(newVal)
     }
   }

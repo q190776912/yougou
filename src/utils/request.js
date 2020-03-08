@@ -1,5 +1,5 @@
 export default function request({ url, method = 'GET', data, showLoading = true }) {
-  const BASE_URL = 'https://api-hmugo-web.itheima.net'
+  const BASE_URL = 'https://www.uinav.com'
   return new Promise((resolve, reject) => {
     if (showLoading) {
       uni.showToast({

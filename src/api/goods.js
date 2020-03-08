@@ -16,9 +16,9 @@ function detail(data) {
   })
 }
 
-function qsearch(data) {
+function goodslist(data) {
   return request({
-    url: '/api/public/v1/goods/qsearch',
+    url: '/api/public/v1/goods/goodslist',
     data,
     showLoading: false
   })
@@ -27,5 +27,5 @@ function qsearch(data) {
 export {
   search,
   detail,
-  qsearch
+  goodslist
 }

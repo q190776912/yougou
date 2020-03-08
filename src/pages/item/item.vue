@@ -112,11 +112,18 @@ export default {
     },
 
     addToCart() {
-      let cart = uni.getStorageSync('cart') || {}
+      let cart = uni.getStorageSync('cart') || []
       const GOOD_ID = this.goodsDetail.goods_id
-      cart[GOOD_ID] = {
-        num: cart[GOOD_ID] ? ++cart[GOOD_ID].num : 1,
-        checked: true
+      const GOOD = cart.find((item) => item.goodsId === GOOD_ID)
+      if (GOOD) {
+        GOOD.num++
+        GOOD.checked = true
+      } else {
+        cart.unshift({
+          goodsId: GOOD_ID,
+          num: 1,
+          checked: true
+        })
       }
       uni.setStorageSync('cart', cart)
     }

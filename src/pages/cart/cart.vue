@@ -6,22 +6,19 @@
     </view>
     <!-- 商品列表 -->
     <view class="goods-list">
-      <view class="goods-item" v-for="(item, index) in 3" :key="index">
+      <view class="goods-item" v-for="(item, index) in goodList" :key="index">
         <text class="iconfont icon-checked"></text>
-        <image
-          src="http://image1.suning.cn/uimg/b2c/newcatentries/0070134290-000000000149003877_1_400x400.jpg"
-          alt
-        />
+        <image :src="item.goodsSmallLogo" alt />
         <view class="right">
-          <text class="text-line2">spike 经典武士大马士革直刀(微型) 户外野营直刀 收藏礼品刀 饰品刀具</text>
+          <text class="text-line2">{{item.goodsName}}</text>
           <view class="btm">
             <text class="price">
               ￥
-              <text>100</text>.00
+              <text>{{item.goodsPrice}}</text>.00
             </text>
             <view class="goods-num">
               <button>-</button>
-              <text>100</text>
+              <text>{{item.num}}</text>
               <button>+</button>
             </view>
           </view>
@@ -48,6 +45,32 @@
 </template>
 
 <script>
+import { goodslist } from '../../api/goods'
+
+export default {
+  data() {
+    return {
+      goodList: [],
+    }
+  },
+  async onShow() {
+    const CART = uni.getStorageSync('cart') || []
+    const GOOD_LIST = await goodslist({
+      goods_ids: CART.map((item) => item.goodsId).join(',')
+    })
+    this.goodList = CART.map((cItem) => {
+      const G_ITEM = GOOD_LIST.find((gItem) => gItem.goods_id === cItem.goodsId)
+      cItem.goodsName = G_ITEM.goods_name
+      cItem.goodsPrice = G_ITEM.goods_price
+      cItem.goodsSmallLogo = G_ITEM.goods_small_logo
+      return cItem
+    })
+  },
+
+  methods: {
+    
+  }
+}
 </script>
 
 <style lang="less">
@@ -90,6 +113,13 @@
       display: flex;
       flex-direction: column;
       margin: 0 20rpx 0 18rpx;
+      .text-line2 {
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
 
       .btm {
         display: flex;

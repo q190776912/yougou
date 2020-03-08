@@ -7,19 +7,19 @@
     <!-- 商品列表 -->
     <view class="goods-list">
       <view class="goods-item" v-for="(item, index) in goodList" :key="index">
-        <text class="iconfont icon-checked"></text>
-        <image :src="item.goodsSmallLogo" alt />
+        <text @click="toggleCheck(item)" class="iconfont" :class="item.checked ? 'icon-checked' : 'icon-uncheck'"></text>
+        <image :src="item.goods_small_logo" alt />
         <view class="right">
-          <text class="text-line2">{{item.goodsName}}</text>
+          <text class="text-line2">{{item.goods_name}}</text>
           <view class="btm">
             <text class="price">
               ￥
-              <text>{{item.goodsPrice}}</text>.00
+              <text>{{item.goods_price}}</text>.00
             </text>
             <view class="goods-num">
-              <button>-</button>
+              <button @click="subNum(index)">-</button>
               <text>{{item.num}}</text>
-              <button>+</button>
+              <button @click="addNum(item)">+</button>
             </view>
           </view>
         </view>
@@ -27,17 +27,17 @@
     </view>
     <view class="account">
       <view class="select-all">
-        <text class="iconfont icon-uncheck"></text>
+        <text @click="toggleAllCheck" class="iconfont" :class="allChecked ? 'icon-checked' : 'icon-uncheck'"></text>
         <text>全选</text>
         <view class="price-wrapper">
           <view class="price">
             <text>
               合计:
-              <text class="num">￥100.00</text>
+              <text class="num">￥{{totalPrice}}.00</text>
             </text>
             <view class="info">包含运费</view>
           </view>
-          <view class="account-btn">结算(3)</view>
+          <view class="account-btn">结算({{totalNum}})</view>
         </view>
       </view>
     </view>
@@ -50,25 +50,67 @@ import { goodslist } from '../../api/goods'
 export default {
   data() {
     return {
-      goodList: [],
+      goodList: []
     }
   },
+
   async onShow() {
-    const CART = uni.getStorageSync('cart') || []
+    const CART = uni.getStorageSync('cart')
+    if (!CART) {
+      return
+    }
     const GOOD_LIST = await goodslist({
       goods_ids: CART.map((item) => item.goodsId).join(',')
     })
-    this.goodList = CART.map((cItem) => {
-      const G_ITEM = GOOD_LIST.find((gItem) => gItem.goods_id === cItem.goodsId)
-      cItem.goodsName = G_ITEM.goods_name
-      cItem.goodsPrice = G_ITEM.goods_price
-      cItem.goodsSmallLogo = G_ITEM.goods_small_logo
-      return cItem
-    })
+    this.goodList = CART.map((cItem) => ({
+      ...cItem, 
+      ...GOOD_LIST.find((gItem) => gItem.goods_id === cItem.goodsId)
+    }))
+  },
+
+  onHide() {
+    uni.setStorageSync('cart', this.goodslist)
   },
 
   methods: {
+    toggleCheck(item) {
+      item.checked = !item.checked
+    },
+
+    toggleAllCheck() {
+      this.allChecked = !this.allChecked
+    },
+
+    addNum(item) {
+      item.num++
+    },
+
+    subNum(index) {
+      if (!--this.goodList[index].num) {
+        this.goodList.splice(index, 1)
+      }
+    },
+  },
+
+  computed: {
+    allChecked: {
+      get() {
+        return this.goodList.every((item) => item.checked)
+      },
+      set(val) {
+        this.goodList.forEach((item) => {
+          item.checked = val
+        })
+      }
+    },
     
+    totalNum() {
+      return this.goodList.reduce((res, item) => item.checked ? ++res : res, 0)
+    },
+
+    totalPrice() {
+      return this.goodList.reduce((res, item) => item.checked ? res + item.goods_price * item.num : res, 0)
+    }
   }
 }
 </script>
